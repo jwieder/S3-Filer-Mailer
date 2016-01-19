@@ -23,7 +23,14 @@
 ## Copyright (c) 2016, Josh Wieder
 ## All rights reserved.
 ####################################################
-. ./S3-Filer-Mailer.conf
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+. $DIR/S3-Filer-Mailer.conf
 
 ROUTE=/tmp/$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)/
 mkdir $ROUTE

@@ -35,3 +35,7 @@ There are a few things that need to be done to tidy this up. Pull requests that 
 * Implement error-handling.
 * Accept regex pattern identification for file notifications in addition to or as an alternative to file dates.
 * Support for multiple email addresses.
+* Local indexing to relieve charges associated with S3 bucket file listing requests (see below)
+
+### Note about AWS charges
+In what is either an over-sight or an incredibly shrewd form of penny-pinching, AWS both charges for file listing requests on S3 buckets thta contain over 1,000 files *and* has not implemented basic functionality to filter such file listings by date, size or other properties. While this script can help with limiting charges associated with SNS, this script can result in charges for S3 file listings if configured to track directories containing over 1,000 files. I have some ideas about how to limit these charges by introducing a local index, but introducing such functionality without integration into the application(s) creating the files in a users S3 bucket is problematic, to say the least.
