@@ -1,5 +1,28 @@
 #!/bin/sh
-# set -x
+####################################################
+##
+## S3 Notifification Mailer
+##
+##      Josh Wieder
+##      contact@joshwieder.net
+##
+## Simple script checks for newly uploaded files to an Amazon S3 bucket. If files exist that were created on the day the scripts
+## is run, the script downloads them, compresses them and then sends them as an email attachment to an address of your choice. 
+## Very useful for S3-backed contact forms. Note that currently the script relies on several complex system architectures - 
+## notably, the AWS CLI and functioning email capability that will allow mailx to work. 
+##
+## Don't forget to update the configuration file S3-Filer-Mailer.sh before running the script! By default, logs are written to 
+## /var/log/s3contacts.log To execute, be sure to add the executable bit: chmod +x S3-Filer-Mailer.sh Once you are comfortable, 
+## consider executing the script daily from your crontab: @daily /path/to/S3-Filer-Mailer.sh
+## 
+##
+## dependencies: mailx-12.5
+##               AWS Command Line Interface (see https://docs.aws.amazon.com/cli/latest/userguide/installing.html )
+##               Python >= 2.6.5 OR >= 3.3
+##
+## Copyright (c) 2016, Josh Wieder
+## All rights reserved.
+####################################################
 . ./S3-Filer-Mailer.conf
 
 ROUTE=/tmp/$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)/
@@ -31,7 +54,8 @@ if [ "$msgCount" -lt "1" ]; then
         exit 0
 else
         tar -czf "$ROUTE"press/${ATTACHMENT} "$ROUTE"copies/* --no-recursion
-        echo "One or more files have been uploaded to your S3 bucket. Check this email's attachments to review a copy of those files." | mailx -a "$ROUTE"press/${ATTAC$
+        echo "One or more files have been uploaded to your S3 bucket. Check this email's attachments to review a copy of those files." | mailx -a "$ROUTE"press/${ATTACHMENT} -s "Contact Requests $TODAY" $EMAILADDY
+
         printf "%s Contact email sent with attachment\n" $TIMESTAMP >> "$LOG"
 fi
 
