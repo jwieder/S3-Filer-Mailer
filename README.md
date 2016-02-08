@@ -31,6 +31,7 @@ This program contains two files: an executable bash file, `S3-Filter-Mailer.sh`,
 ### Updates
 There are a few things that need to be done to tidy this up. Pull requests that address these or other issues I haven't thought of are welcome. Here are the major issues:
 
+* The logging is incorrect - label elements do not match with their values (so the PID gets put where the hostname should be, etc)
 * Accept command line arguments, ex. bucket, log file, help menu, reassign configuration and log file paths, etc.
 * Implement error-handling.
 * Accept regex pattern identification for file notifications in addition to or as an alternative to file dates.
