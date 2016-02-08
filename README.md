@@ -8,7 +8,7 @@ By [Josh Wieder](http://joshwieder.net)
 * [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 * [Python](https://www.python.org/downloads/) version 2 above 2.6.5 or version above 3.3
 * [Mailx](http://linux.die.net/man/1/mailx)
-* Functioning email (you don't need a mail server, but mailx needs somewhere to send to)
+* Functioning email (you don't need your own mail server, but mailx needs to be able to send messages)
 
 ### Instructions
 This program contains two files: an executable bash file, `S3-Filter-Mailer.sh`, and a configuration file `S3-Filter-Mailer.conf`. The configuration file contains four variables:
